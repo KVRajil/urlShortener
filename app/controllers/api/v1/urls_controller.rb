@@ -1,13 +1,12 @@
 module Api::V1
   class UrlsController < ApplicationController
   before_action :check_api_valid
+  respond_to :json
   before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   def index
     @urls = current_user.urls.active
-    respond_to do |format|
-      format.json { render json:@urls }
-    end
+    respond_with urls:@urls
   end
 
   def show
@@ -54,10 +53,12 @@ module Api::V1
   def check_api_valid
     if params[:key].present?
       @api = UserApi.find_by_key(params[:key])
-      @user = @api.user
+      @user = @api.user if @api
     end
     if @api.nil? || @user.nil?
-      render nothing: true, status: 401
+      respond_to do |format|
+        format.json { render json: {}, status: :unprocessable_entity }
+      end
     end
   end
 
