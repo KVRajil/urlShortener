@@ -29,7 +29,7 @@
 <%= link_to 'New Url', new_url_path%>
 <div class="user_uniq_api_key">
   <% if @api.present?  %>
-      <%= @api.key %>
+      <span> User API Token : </span> <%= @api.key %>
   <% else %>
       <%= link_to('Generate API Key', generate_api_key_path, :method => 'post', :remote => true) %>
 <% end %>

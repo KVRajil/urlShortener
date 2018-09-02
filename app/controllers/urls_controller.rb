@@ -5,7 +5,6 @@ class UrlsController < ApplicationController
   def index
     @urls = current_user.urls.active
     @api = current_user.user_apis.first
-    p @api
   end
 
   def goto_url
