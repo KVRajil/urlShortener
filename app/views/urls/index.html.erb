@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Urls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original url</th>
+      <th>Shortened url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr>
+        <td><%= url.original_url %></td>
+        <td><%= link_to "#{url.shortened_url}", "/#{url.shortened_url}" %></td>
+        <td><%= link_to 'Show', url %></td>
+        <td><%= link_to 'Edit', edit_url_path(url) %></td>
+        <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Url', new_url_path%>
+<div class="user_uniq_api_key">
+  <% if @api.present?  %>
+      <%= @api.key %>
+  <% else %>
+      <%= link_to('Generate API Key', generate_api_key_path, :method => 'post', :remote => true) %>
+<% end %>
+</div>
